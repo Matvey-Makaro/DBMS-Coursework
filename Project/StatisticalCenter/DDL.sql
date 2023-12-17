@@ -172,6 +172,7 @@ CREATE TABLE IF NOT EXISTS CausesOfDeath
 (
     cause_of_death_id INTEGER NOT NULL AUTO_INCREMENT,
     name              VARCHAR(100),
+    code_MKB10        VARCHAR(30),
     PRIMARY KEY (cause_of_death_id)
 );
 
