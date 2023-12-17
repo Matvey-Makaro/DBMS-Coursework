@@ -161,9 +161,11 @@ CREATE TABLE IF NOT EXISTS BirthRate
 (
     birth_rate_id INTEGER  NOT NULL AUTO_INCREMENT,
     date          DATETIME NOT NULL,
+    settlement_id INTEGER  NOT NULL,
     parent1_id    INTEGER,
     parent2_id    INTEGER,
     PRIMARY KEY (birth_rate_id),
+    FOREIGN KEY (settlement_id) REFERENCES Settlements (settlement_id),
     FOREIGN KEY (parent1_id) REFERENCES Humans (human_id),
     FOREIGN KEY (parent2_id) REFERENCES Humans (human_id)
 );
@@ -181,22 +183,26 @@ CREATE TABLE IF NOT EXISTS MortalityRate
     mortality_rate_id INTEGER  NOT NULL AUTO_INCREMENT,
     human_id          INTEGER  NOT NULL,
     cause_of_death_id INTEGER  NOT NULL,
+    settlement_id     INTEGER  NOT NULL,
     date              DATETIME NOT NULL,
     PRIMARY KEY (mortality_rate_id),
     FOREIGN KEY (human_id) REFERENCES Humans (human_id),
-    FOREIGN KEY (cause_of_death_id) REFERENCES CausesOfDeath (cause_of_death_id)
+    FOREIGN KEY (cause_of_death_id) REFERENCES CausesOfDeath (cause_of_death_id),
+    FOREIGN KEY (settlement_id) REFERENCES Settlements (settlement_id)
 );
 
 -- Браки
 CREATE TABLE IF NOT EXISTS Marriages
 (
-    marriage_id INTEGER NOT NULL AUTO_INCREMENT,
-    human1_id   INTEGER NOT NULL,
-    human2_id   INTEGER NOT NULL,
-    date        DATE    NOT NULL,
+    marriage_id   INTEGER NOT NULL AUTO_INCREMENT,
+    human1_id     INTEGER NOT NULL,
+    human2_id     INTEGER NOT NULL,
+    settlement_id INTEGER NOT NULL,
+    date          DATE    NOT NULL,
     PRIMARY KEY (marriage_id),
     FOREIGN KEY (human1_id) REFERENCES Humans (human_id),
-    FOREIGN KEY (human2_id) REFERENCES Humans (human_id)
+    FOREIGN KEY (human2_id) REFERENCES Humans (human_id),
+    FOREIGN KEY (settlement_id) REFERENCES Settlements (settlement_id)
 );
 
 -- Разводы
@@ -205,11 +211,13 @@ CREATE TABLE IF NOT EXISTS Divorces
     divorce_id     INTEGER NOT NULL AUTO_INCREMENT,
     human1_id      INTEGER NOT NULL,
     human2_id      INTEGER NOT NULL,
+    settlement_id INTEGER NOT NULL,
     date           DATE    NOT NULL,
     children_count INTEGER DEFAULT 0, -- TODO: Maybe delete
     PRIMARY KEY (divorce_id),
     FOREIGN KEY (human1_id) REFERENCES Humans (human_id),
-    FOREIGN KEY (human2_id) REFERENCES Humans (human_id)
+    FOREIGN KEY (human2_id) REFERENCES Humans (human_id),
+    FOREIGN KEY (settlement_id) REFERENCES Settlements (settlement_id)
 );
 
 CREATE TABLE IF NOT EXISTS ArrivalGoal
@@ -323,6 +331,24 @@ CREATE TABLE IF NOT EXISTS DataSources_StatisticalIndicators
     FOREIGN KEY (data_source_id) REFERENCES DataSources (data_source_id),
     FOREIGN KEY (statistical_indicator_id) REFERENCES StatisticalIndicators (statistical_indicator_id)
 );
+
+CREATE VIEW HumansInfo AS
+SELECT H.human_id,
+       H.birthday,
+       H.sex,
+       N.name  AS nationality,
+       C.name  AS citizenship,
+       EL.name AS education_level,
+       AD.name AS academic_degree,
+       H.is_married
+FROM Humans H
+         LEFT JOIN Nationalities N on N.nationality_id = H.nationality_id
+         LEFT JOIN Citizenships C on H.citizenship_id = C.citizenship_id
+         LEFT JOIN EducationLevels EL on H.education_level_id = EL.education_level_id
+         LEFT JOIN AcademicDegrees AD on H.academic_degree_id = AD.academic_degree_id;
+
+# DROP VIEW HumansInfo;
+
 
 -- Хочу получить:
 --     Число родившихся

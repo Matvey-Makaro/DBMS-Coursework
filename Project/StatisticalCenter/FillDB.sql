@@ -123,16 +123,16 @@ INSERT INTO statisticalcenter.arrivalrate (arrival_rate_id, human_id, date, from
 INSERT INTO statisticalcenter.arrivalrate (arrival_rate_id, human_id, date, from_id, to_id, goal_id) VALUES (2, 5, '2022-12-03', 3, 11, 2);
 
 -- Create Birthrate
-INSERT INTO statisticalcenter.birthrate (birth_rate_id, date, parent1_id, parent2_id) VALUES (1, '2022-12-17 17:55:12', 1, 2);
-INSERT INTO statisticalcenter.birthrate (birth_rate_id, date, parent1_id, parent2_id) VALUES (2, '2022-12-16 17:56:18', 5, 6);
+INSERT INTO statisticalcenter.birthrate (birth_rate_id, date, parent1_id, parent2_id, settlement_id) VALUES (1, '2022-12-17 17:55:12', 1, 2, 11);
+INSERT INTO statisticalcenter.birthrate (birth_rate_id, date, parent1_id, parent2_id, settlement_id) VALUES (2, '2022-12-16 17:56:18', 5, 6, 11);
 
 -- Create divorces
-INSERT INTO statisticalcenter.divorces (divorce_id, human1_id, human2_id, date, children_count) VALUES (1, 1, 2, '2023-12-16', 1);
-INSERT INTO statisticalcenter.divorces (divorce_id, human1_id, human2_id, date, children_count) VALUES (2, 5, 6, '2023-12-15', 1);
+INSERT INTO statisticalcenter.divorces (divorce_id, human1_id, human2_id, date, children_count, settlement_id) VALUES (1, 1, 2, '2023-12-16', 1, 11);
+INSERT INTO statisticalcenter.divorces (divorce_id, human1_id, human2_id, date, children_count, settlement_id) VALUES (2, 5, 6, '2023-12-15', 1, 11);
 
 -- Create mortalityRate
-INSERT INTO statisticalcenter.mortalityrate (mortality_rate_id, human_id, cause_of_death_id, date) VALUES (1, 3, 1, '2022-07-22 18:02:03');
-INSERT INTO statisticalcenter.mortalityrate (mortality_rate_id, human_id, cause_of_death_id, date) VALUES (2, 4, 2, '2022-07-17 18:02:34');
+INSERT INTO statisticalcenter.mortalityrate (mortality_rate_id, human_id, cause_of_death_id, date, settlement_id) VALUES (1, 3, 1, '2022-07-22 18:02:03', 11);
+INSERT INTO statisticalcenter.mortalityrate (mortality_rate_id, human_id, cause_of_death_id, date, settlement_id) VALUES (2, 4, 2, '2022-07-17 18:02:34', 11);
 
 -- Create Positions
 INSERT INTO statisticalcenter.positions (position_id, name) VALUES (1, 'Начальник отдела');
