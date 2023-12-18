@@ -38,16 +38,16 @@ CREATE TABLE IF NOT EXISTS Users
 
 CREATE TABLE IF NOT EXISTS UnitsOfMeasure
 (
-    unit_of_measure_id INTEGER NOT NULL AUTO_INCREMENT,
-    name               VARCHAR(45),
+    unit_of_measure_id INTEGER     NOT NULL AUTO_INCREMENT,
+    name               VARCHAR(45) NOT NULL,
     description        VARCHAR(100),
     PRIMARY KEY (unit_of_measure_id)
 );
 
 CREATE TABLE IF NOT EXISTS TimeIntervals
 (
-    time_interval_id    INTEGER NOT NULL AUTO_INCREMENT,
-    name                VARCHAR(45),
+    time_interval_id    INTEGER     NOT NULL AUTO_INCREMENT,
+    name                VARCHAR(45) NOT NULL,
     interval_in_seconds INTEGER,
     PRIMARY KEY (time_interval_id)
 );
@@ -55,8 +55,8 @@ CREATE TABLE IF NOT EXISTS TimeIntervals
 -- Графики
 CREATE TABLE IF NOT EXISTS Charts
 (
-    chart_id    INTEGER NOT NULL AUTO_INCREMENT,
-    name        VARCHAR(45),
+    chart_id    INTEGER     NOT NULL AUTO_INCREMENT,
+    name        VARCHAR(45) NOT NULL,
     description VARCHAR(300),
     PRIMARY KEY (chart_id)
 );
@@ -73,10 +73,10 @@ CREATE TABLE IF NOT EXISTS SettlementsType
 -- Населенные пунты
 CREATE TABLE IF NOT EXISTS Settlements
 (
-    settlement_id       INTEGER NOT NULL AUTO_INCREMENT,
-    settlements_type_id INTEGER NOT NULL,
+    settlement_id       INTEGER      NOT NULL AUTO_INCREMENT,
+    settlements_type_id INTEGER      NOT NULL,
     parent_id           INTEGER DEFAULT NULL,
-    name                VARCHAR(100),
+    name                VARCHAR(100) NOT NULL,
     PRIMARY KEY (settlement_id),
     FOREIGN KEY (settlements_type_id) REFERENCES SettlementsType (settlement_type_id),
     FOREIGN KEY (parent_id) REFERENCES Settlements (settlement_id)
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS Organizations
 CREATE TABLE IF NOT EXISTS Nationalities
 (
     nationality_id INTEGER NOT NULL AUTO_INCREMENT,
-    name           VARCHAR(100),
+    name           VARCHAR(100) NOT NULL,
     PRIMARY KEY (nationality_id)
 );
 
@@ -118,21 +118,21 @@ CREATE TABLE IF NOT EXISTS Nationalities
 CREATE TABLE IF NOT EXISTS Citizenships
 (
     citizenship_id INTEGER NOT NULL AUTO_INCREMENT,
-    name           VARCHAR(100),
+    name           VARCHAR(100) NOT NULL,
     PRIMARY KEY (citizenship_id)
 );
 
 CREATE TABLE IF NOT EXISTS EducationLevels
 (
     education_level_id INTEGER NOT NULL AUTO_INCREMENT,
-    name               VARCHAR(100),
+    name               VARCHAR(100) NOT NULL,
     PRIMARY KEY (education_level_id)
 );
 
 CREATE TABLE IF NOT EXISTS AcademicDegrees
 (
     academic_degree_id INTEGER NOT NULL AUTO_INCREMENT,
-    name               VARCHAR(100),
+    name               VARCHAR(100) NOT NULL,
     PRIMARY KEY (academic_degree_id)
 );
 
@@ -211,7 +211,7 @@ CREATE TABLE IF NOT EXISTS Divorces
     divorce_id     INTEGER NOT NULL AUTO_INCREMENT,
     human1_id      INTEGER NOT NULL,
     human2_id      INTEGER NOT NULL,
-    settlement_id INTEGER NOT NULL,
+    settlement_id  INTEGER NOT NULL,
     date           DATE    NOT NULL,
     children_count INTEGER DEFAULT 0, -- TODO: Maybe delete
     PRIMARY KEY (divorce_id),
@@ -223,7 +223,7 @@ CREATE TABLE IF NOT EXISTS Divorces
 CREATE TABLE IF NOT EXISTS ArrivalGoal
 (
     arrival_goal_id INTEGER NOT NULL AUTO_INCREMENT,
-    goal            VARCHAR(100),
+    goal            VARCHAR(100) NOT NULL,
     PRIMARY KEY (arrival_goal_id)
 );
 
@@ -247,7 +247,7 @@ CREATE TABLE IF NOT EXISTS ArrivalRate
 CREATE TABLE IF NOT EXISTS LeavingGoal
 (
     leaving_goal_id INTEGER NOT NULL AUTO_INCREMENT,
-    goal            VARCHAR(100),
+    goal            VARCHAR(100) NOT NULL,
     PRIMARY KEY (leaving_goal_id)
 );
 
@@ -269,15 +269,15 @@ CREATE TABLE IF NOT EXISTS LeavingRate
 CREATE TABLE IF NOT EXISTS СonceptsAndDefinitions
 (
     concept_and_definition_id INTEGER NOT NULL AUTO_INCREMENT,
-    concept                   VARCHAR(100),
-    definition                VARCHAR(1000),
+    concept                   VARCHAR(100) NOT NULL,
+    definition                VARCHAR(1000) NOT NULL,
     PRIMARY KEY (concept_and_definition_id)
 );
 
 CREATE TABLE IF NOT EXISTS DataSources
 (
     data_source_id INTEGER NOT NULL AUTO_INCREMENT,
-    name           VARCHAR(300),
+    name           VARCHAR(300) NOT NULL,
     reliability    DOUBLE  NOT NULL DEFAULT 1,
     PRIMARY KEY (data_source_id),
     CONSTRAINT DataSources_reliability_chk CHECK (reliability BETWEEN 0 AND 1)
@@ -286,7 +286,7 @@ CREATE TABLE IF NOT EXISTS DataSources
 CREATE TABLE IF NOT EXISTS StatisticalIndicators
 (
     statistical_indicator_id INTEGER  NOT NULL AUTO_INCREMENT,
-    name                     VARCHAR(100),
+    name                     VARCHAR(100) NOT NULL,
     -- TODO: Тут можно ввести тригеры на обновление last_update
     last_update              DATETIME NOT NULL DEFAULT NOW(),
     creation_date            DATETIME NOT NULL DEFAULT NOW(),
