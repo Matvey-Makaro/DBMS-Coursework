@@ -263,7 +263,7 @@ CREATE TABLE IF NOT EXISTS LeavingRate
     FOREIGN KEY (human_id) REFERENCES Humans (human_id),
     FOREIGN KEY (from_id) REFERENCES Settlements (settlement_id),
     FOREIGN KEY (to_id) REFERENCES Settlements (settlement_id),
-    FOREIGN KEY (goal_id) REFERENCES ArrivalGoal (arrival_goal_id)
+    FOREIGN KEY (goal_id) REFERENCES LeavingGoal (leaving_goal_id)
 );
 
 CREATE TABLE IF NOT EXISTS СonceptsAndDefinitions
