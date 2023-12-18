@@ -126,3 +126,14 @@ BEGIN
         END;
     END IF;
 DELIMITER ;
+
+
+INSERT INTO statisticalcenter.citizenships (citizenship_id, name) VALUES (7, '  Канады  ');
+INSERT INTO statisticalcenter.citizenships (citizenship_id, name) VALUES (8, '  Франции');
+INSERT INTO statisticalcenter.citizenships (citizenship_id, name) VALUES (9, 'Японии   ');
+INSERT INTO statisticalcenter.citizenships (citizenship_id, name) VALUES (10, '    Австралии   ');
+INSERT INTO statisticalcenter.citizenships (citizenship_id, name) VALUES (11, ' Индии ');
+
+INSERT INTO statisticalcenter.nationalities (nationality_id, name) VALUES (4, ' украинцы');
+INSERT INTO statisticalcenter.nationalities (nationality_id, name) VALUES (5, 'евреи ');
+INSERT INTO statisticalcenter.nationalities (nationality_id, name) VALUES (6, '  другие национальности  ');
